@@ -15,6 +15,14 @@ class TikToeScreen extends StatelessWidget {
           centerTitle: true,
           backgroundColor: Colors.yellow[900],
           title: const Text("TicToe"),
+          actions: [
+            IconButton(
+              onPressed: () {
+                _controller.refreshPlayerScore();
+              },
+              icon: const Icon(Icons.refresh),
+            )
+          ],
         ),
         body: GetBuilder(
             init: _controller,
@@ -29,8 +37,12 @@ class TikToeScreen extends StatelessWidget {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        _playerRow(text: "Player 1"),
-                        _playerRow(text: "Player 2"),
+                        _playerRow(
+                            text: "Player 1",
+                            playerscore: "${_controller.playerOScore}"),
+                        _playerRow(
+                            text: "Player 2",
+                            playerscore: "${_controller.playerXScore}"),
                       ],
                     ),
                     GridView.count(
@@ -61,7 +73,10 @@ class TikToeScreen extends StatelessWidget {
                             }),
                     Text(
                       _controller.playerOne.value ? "Turn of O" : "Turn of X",
-                      style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17),
+                      style: const TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17),
                     ),
                   ],
                 ),
@@ -69,7 +84,7 @@ class TikToeScreen extends StatelessWidget {
             }));
   }
 
-  Widget _playerRow({required String text}) {
+  Widget _playerRow({required String text, required String playerscore}) {
     return Column(
       children: [
         Container(
@@ -81,7 +96,7 @@ class TikToeScreen extends StatelessWidget {
               text,
               style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
             )),
-       const  Text("score"),
+        Text(playerscore),
       ],
     );
   }
@@ -89,7 +104,7 @@ class TikToeScreen extends StatelessWidget {
   Widget _containerData(int index) {
     return GestureDetector(
       onTap: () {
-        _controller.onTaped(index) ;
+        _controller.onTaped(index);
       },
       child: Container(
         alignment: Alignment.center,

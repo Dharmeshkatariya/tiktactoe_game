@@ -31,7 +31,7 @@ class Common {
     final controller = Get.put(TikToeController());
     return Get.dialog(Center(
       child: Scaffold(
-        backgroundColor: Colors.grey,
+        backgroundColor: Colors.transparent,
         body: Center(
           child: Container(
               alignment: Alignment.center,
@@ -54,7 +54,7 @@ class Common {
                   const SizedBox(
                     height: 20,
                   ),
-                  controller. notWinner.value?  Text("Winner") : Text("try again latter"),
+                  controller. notWinner.value?  const Text("Winner") : const Text("try again latter"),
                   button(
                       text:controller. notWinner.value? "Restart" : "play again",
                       color: Colors.red,
