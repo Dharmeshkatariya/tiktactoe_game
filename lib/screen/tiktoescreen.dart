@@ -6,7 +6,7 @@ import 'package:tiktoe_game/controller/tiktoe_controller.dart';
 
 class TikToeScreen extends StatelessWidget {
   TikToeScreen({Key? key}) : super(key: key);
-  final controller = Get.put(TikToeController());
+  final _controller = Get.put(TikToeController());
 
   @override
   Widget build(BuildContext context) {
@@ -17,15 +17,22 @@ class TikToeScreen extends StatelessWidget {
           title: const Text("TicToe"),
         ),
         body: GetBuilder(
-            init: TikToeController(),
+            init: _controller,
             builder: (TikToeController controller) {
               return Container(
                 width: double.infinity,
                 padding:
                     const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        _playerRow(text: "Player 1"),
+                        _playerRow(text: "Player 2"),
+                      ],
+                    ),
                     GridView.count(
                       shrinkWrap: true,
                       physics: const NeverScrollableScrollPhysics(),
@@ -38,32 +45,62 @@ class TikToeScreen extends StatelessWidget {
                         (index) => _containerData(index),
                       ),
                     ),
-                    Common.button(text: "Start",color: Colors.red[300]),
+                    _controller.isWinner.value
+                        ? Common.button(
+                            text: "restart",
+                            color: Colors.red[300],
+                            onTap: () {
+                              _controller.initList();
+                              _controller.isWinner.value = false;
+                            })
+                        : Common.button(
+                            text: "Start",
+                            color: Colors.red[300],
+                            onTap: () {
+                              _controller.initList();
+                            }),
+                    Text(
+                      _controller.playerOne.value ? "Turn of O" : "Turn of X",
+                      style: const TextStyle(color: Colors.black,fontWeight: FontWeight.bold,fontSize: 17),
+                    ),
                   ],
                 ),
               );
             }));
   }
 
-  Widget _containerData(int index){
+  Widget _playerRow({required String text}) {
+    return Column(
+      children: [
+        Container(
+            decoration: BoxDecoration(
+                color: Colors.cyan[100],
+                borderRadius: BorderRadius.circular(12)),
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+            child: Text(
+              text,
+              style: const TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
+            )),
+       const  Text("score"),
+      ],
+    );
+  }
+
+  Widget _containerData(int index) {
     return GestureDetector(
       onTap: () {
-        controller.onTaped(index);
+        _controller.onTaped(index) ;
       },
       child: Container(
         alignment: Alignment.center,
         color: Colors.grey[900],
-        padding: const EdgeInsets.symmetric(
-            horizontal: 10, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: Text(
-          controller.displayElement[index],
+          _controller.displayElement[index],
           style: const TextStyle(
-              fontWeight: FontWeight.bold,
-              fontSize: 30,
-              color: Colors.white),
+              fontWeight: FontWeight.bold, fontSize: 30, color: Colors.white),
         ),
       ),
     );
   }
-
 }
