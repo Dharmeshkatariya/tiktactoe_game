@@ -1,6 +1,9 @@
-# tiktoe_game
+# Tiktactoe game 
 
 A new Flutter project.
+
+✔️Tiktactoe game complete working and logic and Better UI
+
 
 ## Getting Started
 
