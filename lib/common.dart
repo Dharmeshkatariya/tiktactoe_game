@@ -57,11 +57,13 @@ class Common {
                   ),
                   controller.notWinner.value
                       ? Text(
-                          "Winner ${controller.playerOne.value ? " X" : "0"}")
+                          "Winner ${controller.playerOne.value ? " player 2" : "player 1"}")
                       : const Text("Game Over"),
                   button(
-                      text: controller.notWinner.value ? "Restart" : " Play Again ",
-                      color: Colors.red[300],
+                      text: controller.notWinner.value
+                          ? "Play Again "
+                          : " Restart ",
+                      color: Colors.orange[300],
                       onTap: () {
                         controller.isWinner.value = true;
                         controller.initList();

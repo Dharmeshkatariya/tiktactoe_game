@@ -9,7 +9,7 @@ class TikToeScreen extends GetView<TikToeController> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return Obx(() => Scaffold(
         appBar: AppBar(
           centerTitle: true,
           backgroundColor: Colors.cyan[900],
@@ -23,59 +23,54 @@ class TikToeScreen extends GetView<TikToeController> {
             )
           ],
         ),
-        body: GetBuilder(
-            init: controller,
-            builder: (TikToeController controller) {
-              return Container(
-                color: Colors.blue[900],
-                width: double.infinity,
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      controller.playerOne.value ? "Turn of O" : "Turn of X",
-                      style: const TextStyle(
-                          color: Colors.cyan,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
-                    ),
-                    GridView.count(
-                      shrinkWrap: true,
-                      physics: const NeverScrollableScrollPhysics(),
-                      primary: false,
-                      crossAxisSpacing: 5,
-                      mainAxisSpacing: 5,
-                      crossAxisCount: 3,
-                      children: List.generate(
-                        controller.displayElement.length,
-                        (index) => _containerData(index),
-                      ),
-                    ),
-                    controller.isWinner.value
-                        ? Common.button(
-                            text: "Restart",
-                            color: controller.isWinner.value
-                                ? Colors.red[300]
-                                : Colors.cyan[300],
-                            onTap: () {
-                              controller.initList();
-                              controller.isWinner.value = false;
-                            })
-                        : Common.button(
-                            text: "Start",
-                            color: controller.isWinner.value
-                                ? Colors.red[300]
-                                : Colors.cyan[300],
-                            onTap: () {
-                              controller.initList();
-                            }),
-                    _playerButtonRow(),
-                  ],
+        body: Container(
+          color: Colors.blue[900],
+          width: double.infinity,
+          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              Text(
+                controller.playerOne.value ? "Turn of O" : "Turn of X",
+                style: const TextStyle(
+                    color: Colors.cyan,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 20),
+              ),
+              GridView.count(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                primary: false,
+                crossAxisSpacing: 5,
+                mainAxisSpacing: 5,
+                crossAxisCount: 3,
+                children: List.generate(
+                  controller.displayElement.length,
+                  (index) => _containerData(index),
                 ),
-              );
-            }));
+              ),
+              controller.isWinner.value
+                  ? Common.button(
+                      text: "Restart",
+                      color: controller.isWinner.value
+                          ? Colors.red[300]
+                          : Colors.cyan[300],
+                      onTap: () {
+                        controller.initList();
+                        controller.isWinner.value = false;
+                      })
+                  : Common.button(
+                      text: "Start",
+                      color: controller.isWinner.value
+                          ? Colors.red[300]
+                          : Colors.cyan[300],
+                      onTap: () {
+                        controller.initList();
+                      }),
+              _playerButtonRow(),
+            ],
+          ),
+        )));
   }
 
   Widget _playerButtonRow() {
@@ -87,13 +82,15 @@ class TikToeScreen extends GetView<TikToeController> {
                 ? Colors.white
                 : Colors.pink[100],
             text: "Player 1",
-            playerscore: "${controller.playerOScore}"),
+            playerscore:
+                "${controller.refreshScore.value ? controller.scoreO.value : controller.playerOScore}"),
         _playerRow(
             color: controller.playerXScore.toString().isEmpty
                 ? Colors.white
                 : Colors.orange[100],
             text: "Player 2",
-            playerscore: "${controller.playerXScore}"),
+            playerscore:
+                "${controller.refreshScore.value ? controller.scoreX.value : controller.playerXScore}"),
       ],
     );
   }

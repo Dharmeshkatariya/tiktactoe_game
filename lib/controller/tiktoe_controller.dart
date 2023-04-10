@@ -6,6 +6,7 @@ class TikToeController extends GetxController {
   RxBool playerOne = true.obs;
   RxBool isWinner = false.obs;
   RxBool notWinner = true.obs;
+  RxBool refreshScore = false.obs;
   int playerOScore = 0;
   int playerXScore = 0;
   RxInt scoreO = 0.obs;
@@ -25,11 +26,13 @@ class TikToeController extends GetxController {
     displayElement.clear();
     filledBoxes = 0;
     notWinner.value = true;
+    refreshScore.value = false;
     for (int i = 0; i < 9; i++) {
       displayElement.add('');
     }
 
     update();
+
   }
 
   onTaped(int index) {
@@ -139,11 +142,19 @@ class TikToeController extends GetxController {
 
   // delete score player 1 and player 2
   refreshPlayerScore() async {
+    refreshScore.value = true;
     var sherP = await SharedPreferences.getInstance();
     sherP.remove("scoreO");
     sherP.remove("scoreX");
     scoreX.value = 0;
     scoreO.value = 0;
     update();
+  }
+
+  @override
+  void onClose() {
+    // TODO: implement onClose
+    initList();
+    super.onClose();
   }
 }
