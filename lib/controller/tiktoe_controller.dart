@@ -100,7 +100,7 @@ class TikToeController extends GetxController {
         displayElement[0] != "") {
       isWinner.value = true;
       checkPlayer(displayElement[0]);
-      print(displayElement);
+      Common.commonDialog();
     } else if (displayElement[2] != "" &&
         displayElement[2] == displayElement[4] &&
         displayElement[2] == displayElement[6]) {
@@ -117,7 +117,6 @@ class TikToeController extends GetxController {
   // check paler score
   checkPlayer(String player) async {
     var sherP = await SharedPreferences.getInstance();
-
     if (player == "O") {
       scoreO += 10;
       sherP.setInt("scoreO", scoreO.value);
@@ -144,7 +143,6 @@ class TikToeController extends GetxController {
     sherP.remove("scoreO");
     sherP.remove("scoreX");
     scoreX.value = 0;
-    scoreO.value = 0;
     scoreO.value = 0;
     update();
   }

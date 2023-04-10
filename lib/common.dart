@@ -12,16 +12,15 @@ class Common {
       onTap: onTap,
       child: Container(
         alignment: Alignment.center,
-        width: double.infinity,
-        padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        margin: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+        padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 15),
+        margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 10),
         decoration: BoxDecoration(
           color: color,
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(25),
         ),
         child: Text(
           text,
-          style: const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+          style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
         ),
       ),
     );
@@ -44,24 +43,29 @@ class Common {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  controller. notWinner.value?  Image.asset(
-                    "assets/icon/t.jpg",
-                    height: 70,
-                  ) : Image.asset(
-                    "assets/icon/not.png",
-                    height: 70,
-                  ),
+                  controller.notWinner.value
+                      ? Image.asset(
+                          "assets/icon/t.jpg",
+                          height: 70,
+                        )
+                      : Image.asset(
+                          "assets/icon/not.png",
+                          height: 70,
+                        ),
                   const SizedBox(
                     height: 20,
                   ),
-                  controller. notWinner.value?  const Text("Winner") : const Text("try again latter"),
+                  controller.notWinner.value
+                      ? Text(
+                          "Winner ${controller.playerOne.value ? " X" : "0"}")
+                      : const Text("Game Over"),
                   button(
-                      text:controller. notWinner.value? "Restart" : "play again",
-                      color: Colors.red,
+                      text: controller.notWinner.value ? "Restart" : " Play Again ",
+                      color: Colors.red[300],
                       onTap: () {
+                        controller.isWinner.value = true;
                         controller.initList();
                         Get.back();
-
                       }),
                 ],
               )),
