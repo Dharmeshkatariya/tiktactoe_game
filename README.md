@@ -3,7 +3,9 @@
 A new Flutter project.
 
 ✔️Tiktactoe game complete working and logic and Better UI
-
+Technologies Used
+Flutter: A framework for building cross-platform apps
+Dart: A programming language optimized for client-side development
 
 ## Getting Started
 
