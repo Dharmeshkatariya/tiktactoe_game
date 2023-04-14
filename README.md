@@ -1,6 +1,15 @@
 # Tiktactoe game 
 
-A new Flutter project.
+Tic Tac Toe Game in Flutter Dart
+This is a simple tic-tac-toe game built using Flutter and Dart. The game is designed to be easy to play and visually appealing, with a clean and intuitive interface.
+
+# Features
+Play against the computer or against another player
+Choose the game mode and difficulty level
+Sound effects for game events
+Option to reset the game at any time
+# How to Use
+To use the game, simply clone or download the repository and open it in your favorite editor. Then, run the app on an emulator or a physical device.
 
 ✔️Tiktactoe game complete working and logic and Better UI
 Technologies Used
