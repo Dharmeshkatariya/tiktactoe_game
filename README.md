@@ -1,6 +1,6 @@
 # Tiktactoe game 
 
-Tic Tac Toe Game in Flutter Dart
+# Tic Tac Toe Game in Flutter Dart
 This is a simple tic-tac-toe game built using Flutter and Dart. The game is designed to be easy to play and visually appealing, with a clean and intuitive interface.
 
 # Features
